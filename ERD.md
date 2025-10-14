@@ -17,6 +17,8 @@ erDiagram
         string contact_name
         datetime sent_at
         string message_text
+        string platform // whatsapp | telegram | discord
+        string provider_status // delivered | failed | queued
     }
 
     USER ||--o{ MESSAGE_TEMPLATE : has
