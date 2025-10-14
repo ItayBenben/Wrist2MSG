@@ -10,12 +10,26 @@
 - `ConfigManager.swift` → Loads templates and contact lists.
 
 ## Python Backend
-- `app.py` → REST API to receive message requests.
-- `whatsapp_service.py` → Handles WhatsApp automation.
+- `backend_app.py` → REST API to receive message requests.
+- `providers/base.py` → Defines `MessageProvider` interface.
+- `providers/whatsapp_provider.py` → WhatsApp implementation.
+- `providers/telegram_provider.py` → Telegram Bot API implementation.
+- `providers/discord_provider.py` → Discord Webhook/Bot implementation.
 - `db_manager.py` → Manages message logs and configurations.
+
+## Provider Interface
+```mermaid
+classDiagram
+class MessageProvider {
+  +sendMessage(contact, message) bool
+}
+MessageProvider <|.. WhatsAppProvider
+MessageProvider <|.. TelegramProvider
+MessageProvider <|.. DiscordProvider
+```
 
 ## Data Flow
 ```mermaid
 flowchart LR
-    Garmin --> iPhone --> Backend --> WhatsApp
+    Garmin --> iPhone --> Backend --> ProviderAdapter --> (WhatsApp | Telegram | Discord)
 ```
