@@ -2,20 +2,22 @@
 
 ## Garmin App (Monkey C)
 - `MainView.mc` → Displays dropdown for contacts/messages.
-- `CommHandler.mc` → Handles BLE connection to iPhone app.
+- `WebRequestClient.mc` → Uses `Toybox.Communications.makeWebRequest` via Garmin Connect Mobile to call backend.
+- `AuthManager.mc` → Attaches short-lived token to requests.
 
-## iPhone App (Swift)
-- `BLEManager.swift` → Listens to Garmin data packets.
-- `NetworkManager.swift` → Sends HTTPS POST to backend.
-- `ConfigManager.swift` → Loads templates and contact lists.
+## Configuration UI
+- Web dashboard for managing contacts and message templates (mobile-friendly). Synchronizes with backend.
 
 ## Python Backend
-- `app.py` → REST API to receive message requests.
-- `whatsapp_service.py` → Handles WhatsApp automation.
-- `db_manager.py` → Manages message logs and configurations.
+- `app.py` → FastAPI application exposing REST endpoints.
+- `whatsapp_service.py` → Sends messages via WhatsApp Business Cloud API.
+- `webhooks.py` → Handles WhatsApp webhook callbacks for delivery status.
+- `queue_worker.py` → Async job processor (Celery/RQ) for non-blocking dispatch.
+- `db_manager.py` → Manages message logs, contacts, and templates.
 
 ## Data Flow
 ```mermaid
 flowchart LR
-    Garmin --> iPhone --> Backend --> WhatsApp
+    Garmin -- WebRequest via GCM --> Backend --> WhatsApp
+    WhatsApp -- webhook --> Backend
 ```
