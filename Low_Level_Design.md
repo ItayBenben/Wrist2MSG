@@ -10,12 +10,14 @@
 - `ConfigManager.swift` → Loads templates and contact lists.
 
 ## Python Backend
-- `app.py` → REST API to receive message requests.
-- `whatsapp_service.py` → Handles WhatsApp automation.
+- `backend_app.py` → REST API to receive message requests and dispatch to providers.
+- `messaging_services.py` → Handles WhatsApp, Telegram, and Discord integrations.
 - `db_manager.py` → Manages message logs and configurations.
 
 ## Data Flow
 ```mermaid
 flowchart LR
     Garmin --> iPhone --> Backend --> WhatsApp
+    Backend --> Telegram
+    Backend --> Discord
 ```
