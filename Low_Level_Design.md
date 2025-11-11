@@ -13,9 +13,12 @@
 - `app.py` → REST API to receive message requests.
 - `whatsapp_service.py` → Handles WhatsApp automation.
 - `db_manager.py` → Manages message logs and configurations.
+- `messaging_service.py` → Dispatches outbound messages to WhatsApp, Telegram, and Discord.
 
 ## Data Flow
 ```mermaid
 flowchart LR
     Garmin --> iPhone --> Backend --> WhatsApp
+    Backend --> Telegram
+    Backend --> Discord
 ```

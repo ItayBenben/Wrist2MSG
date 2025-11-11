@@ -7,12 +7,14 @@ The architecture consists of three layers:
 3. **Cloud Backend (Python on VPS)**
 
 ### Communication Flow
-Garmin App → iPhone App → Cloud Server → WhatsApp Web API → Recipient
+Garmin App → iPhone App → Cloud Server → Messaging Interface → Recipient
 
 ### Technologies
 - Garmin ConnectIQ SDK (Monkey C)
 - Swift (iPhone companion app)
 - Python (Flask/FastAPI backend)
+- Telegram Bot API integration
+- Discord Webhook integration
 - Docker container on VPS (Ubuntu)
 
 ## Deployment Diagram
@@ -21,4 +23,6 @@ graph TD
     A[Garmin Watch] -->|BLE/ConnectIQ| B[iPhone App]
     B -->|HTTPS| C[Python Backend VPS]
     C -->|WhatsApp Automation| D[Recipient via WhatsApp]
+    C -->|Telegram Bot API| E[Recipient via Telegram]
+    C -->|Discord Webhook| F[Recipient via Discord]
 ```
